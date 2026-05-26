@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>居酒屋 天狗 ｜ 上州・沼田の山の幸処</title>
+<meta name="description" content="赤城・武尊・谷川——上州の山々が育てた山の幸、川の幸を炭火で豪快に。群馬県沼田市の居酒屋「天狗」。ジビエ・山菜・きのこ・十割そば、宴会コースもご用意。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:            #15100d;
+    --bg-2:          #1b1410;
+    --surface:       #241b14;
+    --surface-2:     #2e2218;
+    --ink:           #110a06;
+    --text:          #f1e7d4;
+    --muted:         #9c8266;
+    --muted-2:       #786350;
+    --crimson:       #b62f22;
+    --crimson-bright:#dc4630;
+    --crimson-deep:  #7c1c12;
+    --gold:          #c89742;
+    --gold-light:    #e7c069;
+    --cream:         #f8efdb;
+    --white:         #fbf7ef;
+    --rule:          #38291d;
+    --pine:          #56654f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.95;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .mincho { font-family: 'Shippori Mincho', serif; }
+  .brush  { font-family: 'Yuji Syuku', serif; }
+
+  /* 共通：和紙テクスチャ */
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ───────── HEADER ───────── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    height: 76px;
+    padding: 0 clamp(20px, 4vw, 52px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(21,16,13,0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: background .35s, border-color .35s, height .35s;
+  }
+  header.scrolled {
+    height: 64px;
+    background: rgba(21,16,13,0.96);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 38%, rgba(220,70,48,.25), transparent 70%);
+  }
+  .brand-mark svg { width: 26px; height: 31px; }
+  .brand-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    color: var(--cream);
+    line-height: 1;
+  }
+  .brand-name small {
+    display: block;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 8px;
+    font-weight: 400;
+    letter-spacing: .34em;
+    color: var(--gold);
+    margin-top: 5px;
+    padding-left: .26em;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  nav a {
+    font-size: 12.5px;
+    letter-spacing: .12em;
+    color: var(--text);
+    text-decoration: none;
+    transition: color .2s;
+    position: relative;
+  }
+  nav a:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -6px;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width .25s;
+  }
+  nav a:not(.nav-cta):hover { color: var(--gold-light); }
+  nav a:not(.nav-cta):hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--crimson);
+    color: var(--white);
+    padding: 11px 24px;
+    font-size: 12px;
+    letter-spacing: .2em;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+  }
+  .nav-cta:hover { background: var(--crimson-bright); transform: translateY(-1px); }
+
+  .nav-toggle {
+    display: none;
+    width: 42px; height: 42px;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .nav-toggle span {
+    width: 18px; height: 1.5px;
+    background: var(--cream);
+    transition: .3s;
+  }
+
+  /* ───────── HERO ───────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 200px;
+    overflow: hidden;
+  }
+  .hero-sky {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 32%, rgba(220,70,48,.22) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200,151,66,.14) 0%, transparent 55%),
+      linear-gradient(180deg, #1d130e 0%, #15100d 55%, #110c08 100%);
+    z-index: 0;
+  }
+  /* 満月 */
+  .hero-moon {
+    position: absolute;
+    top: 11%;
+    right: 16%;
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 42% 40%, #f4e6c4, #d9b870 70%, #c79f55);
+    box-shadow: 0 0 70px 14px rgba(231,192,105,.28);
+    z-index: 1;
+  }
+  /* 山影 */
+  .hero-mountains {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    width: 100%;
+    z-index: 2;
+    display: block;
+  }
+  .hero-fade {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 220px;
+    background: linear-gradient(180deg, transparent, var(--bg));
+    z-index: 3;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-mask {
+    width: 132px;
+    filter: drop-shadow(0 0 26px rgba(220,70,48,.45));
+    opacity: 0;
+    transform: translateY(16px) scale(.92);
+    animation: rise .9s .15s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-eyebrow {
+    margin-top: 26px;
+    font-size: 12px;
+    letter-spacing: .42em;
+    color: var(--gold-light);
+    opacity: 0;
+    animation: rise .8s .4s ease forwards;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin: 0 14px;
+    opacity: .6;
+  }
+  .hero-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(94px, 19vw, 188px);
+    line-height: .96;
+    letter-spacing: .14em;
+    color: var(--cream);
+    margin: 14px 0 6px;
+    padding-left: .14em;
+    text-shadow: 0 6px 40px rgba(0,0,0,.6);
+    opacity: 0;
+    animation: rise 1s .55s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .hero-read {
+    font-size: 12px;
+    letter-spacing: .5em;
+    color: var(--muted);
+    padding-left: .5em;
+    opacity: 0;
+    animation: rise .8s .8s ease forwards;
+  }
+  .hero-catch {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(22px, 3.6vw, 38px);
+    font-weight: 700;
+    letter-spacing: .14em;
+    color: var(--gold-light);
+    margin-top: 38px;
+    opacity: 0;
+    animation: rise .8s 1s ease forwards;
+  }
+  .hero-sub {
+    font-size: clamp(13px, 1.6vw, 15px);
+    letter-spacing: .14em;
+    color: var(--text);
+    margin-top: 14px;
+    opacity: 0;
+    animation: rise .8s 1.15s ease forwards;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: rise .8s 1.3s ease forwards;
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .btn-primary, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 38px;
+    font-size: 13px;
+    letter-spacing: .2em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all .22s;
+  }
+  .btn-primary {
+    background: var(--crimson);
+    color: var(--white);
+    box-shadow: 0 10px 30px -10px rgba(182,47,34,.7);
+  }
+  .btn-primary:hover { background: var(--crimson-bright); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid var(--muted);
+    color: var(--cream);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  /* 火の粉 */
+  .embers { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  .ember {
+    position: absolute;
+    bottom: -10px;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    box-shadow: 0 0 6px 1px rgba(231,192,105,.7);
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    12%  { opacity: .9; }
+    80%  { opacity: .7; }
+    100% { transform: translateY(-78vh) translateX(34px); opacity: 0; }
+  }
+
+  /* ───────── 営業情報バー ───────── */
+  .infobar {
+    position: relative;
+    z-index: 10;
+    margin-top: -1px;
+    background: var(--surface);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .infobar-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .info-cell {
+    padding: 26px 20px;
+    text-align: center;
+    border-right: 1px solid var(--rule);
+  }
+  .info-cell:last-child { border-right: none; }
+  .info-label {
+    font-size: 10px;
+    letter-spacing: .3em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .info-val {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: .06em;
+  }
+  .info-val small {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ───────── セクション共通 ───────── */
+  section { position: relative; }
+  .wrap { max-width: 1140px; margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: .34em;
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 22px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 44px);
+    letter-spacing: .1em;
+    color: var(--cream);
+    line-height: 1.45;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ───────── CONCEPT ───────── */
+  .concept {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg-2);
+    overflow: hidden;
+  }
+  .concept::after {
+    content: '天狗';
+    position: absolute;
+    right: -8%;
+    top: 8%;
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(180px, 30vw, 360px);
+    color: rgba(220,70,48,.045);
+    line-height: 1;
+    letter-spacing: -.05em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .concept-lead {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(22px, 2.8vw, 32px);
+    font-weight: 600;
+    line-height: 1.85;
+    color: var(--cream);
+    margin: 6px 0 26px;
+  }
+  .concept-lead em {
+    font-style: normal;
+    color: var(--gold-light);
+  }
+  .concept-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 2.5;
+  }
+  .concept-body + .concept-body { margin-top: 18px; }
+
+  .concept-art {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(220,70,48,.16), transparent 62%),
+      linear-gradient(160deg, var(--surface), var(--ink));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .concept-art .grain-layer {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+  .concept-art svg.mask-big {
+    width: 56%;
+    filter: drop-shadow(0 0 34px rgba(220,70,48,.4));
+  }
+  .concept-art .art-cap {
+    position: absolute;
+    bottom: 22px;
+    font-size: 11px;
+    letter-spacing: .3em;
+    color: var(--muted);
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin-top: clamp(48px, 7vw, 76px);
+    position: relative;
+    z-index: 2;
+  }
+  .pillar {
+    background: var(--bg-2);
+    padding: 38px 26px;
+    text-align: center;
+  }
+  .pillar-no {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    letter-spacing: .3em;
+    color: var(--gold);
+  }
+  .pillar-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--cream);
+    margin: 10px 0 12px;
+    letter-spacing: .12em;
+  }
+  .pillar-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  /* ───────── 名物 SIGNATURE ───────── */
+  .signature {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg);
+  }
+  .sig-head { text-align: center; margin-bottom: 56px; }
+  .sig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .sig-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .3s, border-color .3s;
+  }
+  .sig-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+  .sig-visual {
+    aspect-ratio: 5 / 4;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(ellipse at 50% 60%, rgba(220,70,48,.2), transparent 65%),
+      linear-gradient(150deg, var(--surface-2), var(--ink));
+    border-bottom: 1px solid var(--rule);
+  }
+  .sig-kanji {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(60px, 9vw, 96px);
+    color: rgba(248,239,219,.1);
+    line-height: 1;
+  }
+  .sig-badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: var(--crimson);
+    color: var(--white);
+    font-size: 10px;
+    letter-spacing: .16em;
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+  .sig-no {
+    position: absolute;
+    bottom: 12px; right: 16px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 13px;
+    letter-spacing: .2em;
+    color: var(--gold);
+  }
+  .sig-text { padding: 26px 26px 30px; flex: 1; display: flex; flex-direction: column; }
+  .sig-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: .08em;
+  }
+  .sig-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 2;
+    margin: 12px 0 18px;
+    flex: 1;
+  }
+  .sig-price {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--gold-light);
+  }
+  .sig-price small {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ───────── お品書き MENU ───────── */
+  .menu {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg-2);
+  }
+  .menu-head {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .menu-note-top {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 56px;
+  }
+  .menu-cat { margin-bottom: 52px; }
+  .menu-cat:last-child { margin-bottom: 0; }
+  .cat-bar {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 14px;
+    margin-bottom: 8px;
+  }
+  .cat-jp {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: .14em;
+  }
+  .cat-en {
+    font-size: 10px;
+    letter-spacing: .28em;
+    color: var(--muted-2);
+  }
+  .menu-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 48px;
+  }
+  .dish {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 17px 4px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .dish-info { flex: 1; }
+  .dish-name {
+    font-size: 15px;
+    color: var(--cream);
+    font-weight: 500;
+  }
+  .dish-name .tag-hot {
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    color: var(--white);
+    background: var(--crimson);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: 2px;
+  }
+  .dish-desc {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 3px;
+  }
+  .dish-price {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .dish-price small {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* ───────── お飲み物 DRINK ───────── */
+  .drink {
+    padding: clamp(80px, 11vw, 130px) 24px;
+    background: var(--surface);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .drink-head { text-align: center; margin-bottom: 52px; }
+  .drink-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 24px;
+  }
+  .drink-block {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 30px 28px;
+  }
+  .drink-block.feature {
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(220,70,48,.16), transparent 60%),
+      var(--bg-2);
+    border-color: var(--crimson-deep);
+  }
+  .drink-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: .1em;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .drink-title span {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 10px;
+    letter-spacing: .2em;
+    color: var(--muted-2);
+    margin-left: 8px;
+  }
+  .drink-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 9px 0;
+    font-size: 13.5px;
+  }
+  .drink-row span:first-child { color: var(--text); }
+  .drink-row span:last-child {
+    font-family: 'Shippori Mincho', serif;
+    color: var(--gold-light);
+    font-size: 15px;
+  }
+  .drink-lead {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 8px;
+  }
+
+  /* ───────── 宴会コース COURSE ───────── */
+  .course {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg);
+  }
+  .course-head { text-align: center; margin-bottom: 22px; }
+  .course-note { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 54px; }
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .course-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 40px 36px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .course-card.premium {
+    border-color: var(--gold);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(200,151,66,.12), transparent 55%),
+      var(--surface);
+  }
+  .course-ribbon {
+    position: absolute;
+    top: -1px; right: 28px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    padding: 6px 14px;
+  }
+  .course-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: .1em;
+  }
+  .course-for {
+    font-size: 11.5px;
+    color: var(--gold);
+    letter-spacing: .1em;
+    margin-top: 6px;
+  }
+  .course-price {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin: 20px 0 4px;
+    line-height: 1;
+  }
+  .course-price small {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  .course-meta {
+    font-size: 12px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+  }
+  .course-feats {
+    list-style: none;
+    font-size: 13px;
+    flex: 1;
+  }
+  .course-feats li {
+    padding: 7px 0 7px 24px;
+    position: relative;
+    color: var(--text);
+  }
+  .course-feats li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 14px;
+    width: 11px; height: 11px;
+    background: var(--crimson);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+  .course-cta {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    padding: 14px;
+    background: var(--crimson);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: .16em;
+    border-radius: 2px;
+    transition: background .2s;
+  }
+  .course-card.premium .course-cta { background: var(--gold); color: var(--ink); font-weight: 700; }
+  .course-cta:hover { filter: brightness(1.1); }
+
+  /* ───────── 個室・店内 ROOM ───────── */
+  .room {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg-2);
+  }
+  .room-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .room-art {
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at 70% 25%, rgba(231,192,105,.12), transparent 60%),
+      linear-gradient(150deg, var(--surface-2), var(--ink));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .room-art .fan { width: 84px; opacity: .8; }
+  .room-art p { font-size: 11px; letter-spacing: .26em; color: var(--muted); }
+  .room-feats { margin-top: 30px; }
+  .room-feat {
+    display: flex;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .room-feat:last-child { border-bottom: none; }
+  .feat-mark {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--gold-light);
+  }
+  .feat-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+  .feat-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-top: 3px;
+  }
+
+  /* ───────── アクセス・ご予約 ───────── */
+  .access {
+    padding: clamp(90px, 12vw, 150px) 24px;
+    background: var(--bg);
+  }
+  .access-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(36px, 5vw, 64px);
+  }
+  .access-rows { margin-top: 28px; }
+  .arow {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13.5px;
+  }
+  .arow dt { color: var(--gold); letter-spacing: .1em; }
+  .arow dd { color: var(--text); }
+
+  .reserve-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 38px 34px;
+  }
+  .reserve-tel {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(34px, 5vw, 46px);
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: .04em;
+    line-height: 1.1;
+    text-decoration: none;
+    display: block;
+    margin: 8px 0 4px;
+  }
+  .reserve-hours { font-size: 11.5px; color: var(--muted); margin-bottom: 24px; }
+  .reserve-methods { display: flex; flex-direction: column; gap: 12px; }
+  .rmethod {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: border-color .2s, transform .2s;
+  }
+  .rmethod:hover { border-color: var(--gold); transform: translateX(3px); }
+  .rmethod-ic {
+    width: 38px; height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--crimson);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rmethod-ic svg { width: 18px; height: 18px; fill: var(--white); }
+  .rmethod-label { font-size: 10px; letter-spacing: .24em; color: var(--gold); }
+  .rmethod-name { font-size: 13.5px; color: var(--cream); }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid var(--rule);
+    padding: 64px 24px 28px;
+  }
+  .footer-top {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-brand svg { width: 40px; }
+  .footer-brand-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    color: var(--cream);
+  }
+  .footer-brand-name small {
+    display: block;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: .12em;
+    margin-top: 6px;
+  }
+  .footer-nav {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+  }
+  .footer-nav a {
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-nav a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    max-width: 1140px;
+    margin: 44px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--muted-2);
+    letter-spacing: .08em;
+  }
+
+  /* ───────── モバイルメニュー ───────── */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 190;
+    background: rgba(17,10,6,.98);
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: auto; }
+  .mobile-menu a {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 22px;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: .14em;
+    padding: 12px 0;
+  }
+  .mobile-menu a small {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: .2em;
+    margin-left: 10px;
+  }
+  .mobile-menu .mm-cta {
+    margin-top: 18px;
+    background: var(--crimson);
+    color: var(--white);
+    padding: 14px 44px;
+    font-size: 15px;
+    border-radius: 2px;
+  }
+
+  /* ───────── レスポンシブ ───────── */
+  @media (max-width: 940px) {
+    nav { display: none; }
+    .nav-toggle { display: flex; }
+    .concept-grid, .room-grid, .access-grid { grid-template-columns: 1fr; }
+    .concept-art, .room-art { max-width: 380px; margin: 0 auto; width: 100%; }
+    .drink-grid { grid-template-columns: 1fr; }
+    .menu-list { grid-template-columns: 1fr; }
+    .infobar-inner { grid-template-columns: 1fr 1fr; }
+    .info-cell:nth-child(2) { border-right: none; }
+    .info-cell:nth-child(1), .info-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+  }
+  @media (max-width: 680px) {
+    .sig-grid, .pillars, .course-grid { grid-template-columns: 1fr; }
+    .pillars { background: transparent; gap: 1px; }
+    .hero { padding-bottom: 150px; }
+    .hero-mask { width: 104px; }
+    .footer-top { flex-direction: column; }
+    .arow { grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body class="grain">
+
+<!-- ===== 天狗面シンボル定義 ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="faceGrad" cx="50%" cy="34%" r="78%">
+      <stop offset="0%"  stop-color="#d6402d"/>
+      <stop offset="58%" stop-color="#b62f22"/>
+      <stop offset="100%" stop-color="#7c1c12"/>
+    </radialGradient>
+    <linearGradient id="noseGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#e85a40"/>
+      <stop offset="100%" stop-color="#a8281a"/>
+    </linearGradient>
+  </defs>
+  <symbol id="tengu" viewBox="0 0 200 248">
+    <!-- 顔 -->
+    <path d="M100 22 C148 22 178 60 178 106 C178 150 152 178 120 188 C113 190 106 192 100 193 C94 192 87 190 80 188 C48 178 22 150 22 106 C22 60 52 22 100 22 Z" fill="url(#faceGrad)" stroke="#5e150d" stroke-width="2"/>
+    <!-- 額のしわ -->
+    <path d="M86 50 C92 46 108 46 114 50" stroke="#7c1c12" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+    <!-- 鼻（長い） -->
+    <path d="M100 60 C88 60 82 76 81 102 C80 128 87 158 95 206 C97 222 99 230 100 234 C101 230 103 222 105 206 C113 158 120 128 119 102 C118 76 112 60 100 60 Z" fill="url(#noseGrad)" stroke="#5e150d" stroke-width="1.6"/>
+    <!-- 鼻のハイライト -->
+    <path d="M100 74 C97 86 96 130 98 178 C99 196 100 210 100 218" stroke="#f0a890" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".55"/>
+    <!-- 眉 -->
+    <path d="M34 64 C56 62 76 74 88 92 C74 90 58 88 47 81 C39 75 34 70 34 64 Z" fill="#c89742"/>
+    <path d="M166 64 C144 62 124 74 112 92 C126 90 142 88 153 81 C161 75 166 70 166 64 Z" fill="#c89742"/>
+    <!-- 目 -->
+    <ellipse cx="62" cy="106" rx="15" ry="10" fill="#f8efdb"/>
+    <ellipse cx="138" cy="106" rx="15" ry="10" fill="#f8efdb"/>
+    <circle cx="65" cy="107" r="6.2" fill="#110a06"/>
+    <circle cx="135" cy="107" r="6.2" fill="#110a06"/>
+    <circle cx="67" cy="104" r="2" fill="#fff" opacity=".85"/>
+    <circle cx="137" cy="104" r="2" fill="#fff" opacity=".85"/>
+    <!-- 口ひげ -->
+    <path d="M82 144 C72 148 64 158 60 170 C70 165 80 158 88 148 Z" fill="#2a1208" opacity=".7"/>
+    <path d="M118 144 C128 148 136 158 140 170 C130 165 120 158 112 148 Z" fill="#2a1208" opacity=".7"/>
+  </symbol>
+  <!-- 羽団扇 -->
+  <symbol id="fan" viewBox="0 0 120 130">
+    <path d="M60 124 L60 70" stroke="#9c8266" stroke-width="3" stroke-linecap="round"/>
+    <g fill="none" stroke="#c89742" stroke-width="2.4" stroke-linecap="round">
+      <path d="M60 72 C60 40 60 20 60 10"/>
+      <path d="M60 74 C44 46 32 30 22 18"/>
+      <path d="M60 74 C76 46 88 30 98 18"/>
+      <path d="M60 76 C36 54 22 42 12 32"/>
+      <path d="M60 76 C84 54 98 42 108 32"/>
+    </g>
+    <path d="M14 30 C36 8 84 8 106 30 C100 44 90 52 60 52 C30 52 20 44 14 30 Z" fill="rgba(200,151,66,.14)" stroke="#c89742" stroke-width="2"/>
+  </symbol>
+</svg>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader">
+  <a class="brand" href="#top">
+    <span class="brand-mark"><svg><use href="#tengu"/></svg></span>
+    <span class="brand-name">天狗<small>IZAKAYA TENGU</small></span>
+  </a>
+  <nav>
+    <a href="#concept">心意気</a>
+    <a href="#signature">名物</a>
+    <a href="#menu">お品書き</a>
+    <a href="#drink">お飲み物</a>
+    <a href="#course">宴会</a>
+    <a href="#access">アクセス</a>
+    <a href="#reserve" class="nav-cta">ご予約</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#concept">心意気<small>CONCEPT</small></a>
+  <a href="#signature">名物<small>SIGNATURE</small></a>
+  <a href="#menu">お品書き<small>MENU</small></a>
+  <a href="#drink">お飲み物<small>DRINK</small></a>
+  <a href="#course">宴会<small>COURSE</small></a>
+  <a href="#access">アクセス<small>ACCESS</small></a>
+  <a href="#reserve" class="mm-cta">ご予約はこちら</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="hero-sky"></div>
+  <div class="hero-moon"></div>
+
+  <svg class="hero-mountains" viewBox="0 0 1440 360" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#231911" d="M0 360V210l180-120 150 96 200-150 210 168 200-132 190 120 160-96 150 90v204z"/>
+    <path fill="#1c130d" d="M0 360V250l160-104 220 150 180-120 230 168 210-132 200 138 140-90 100 66v124z"/>
+    <path fill="#15100d" d="M0 360V300l260-120 230 132 240-96 220 126 210-108 230 138 90-48v36z"/>
+  </svg>
+  <div class="hero-fade"></div>
+  <div class="embers" id="embers"></div>
+
+  <div class="hero-inner">
+    <svg class="hero-mask" viewBox="0 0 200 248"><use href="#tengu"/></svg>
+    <p class="hero-eyebrow">上州・沼田 ─ 山の幸処</p>
+    <h1 class="hero-title brush">天狗</h1>
+    <p class="hero-read">い ざ か や 　 て ん ぐ</p>
+    <p class="hero-catch">鼻が高い、旨さです。</p>
+    <p class="hero-sub">山が育てた旬を、炭火で豪快に。</p>
+    <div class="hero-btns">
+      <a href="#reserve" class="btn-primary">席を予約する</a>
+      <a href="#menu" class="btn-ghost">お品書きを見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 営業情報バー ===== -->
+<div class="infobar">
+  <div class="infobar-inner">
+    <div class="info-cell">
+      <span class="info-label">OPEN</span>
+      <span class="info-val">17:00 – 24:00<small>L.O. 23:00</small></span>
+    </div>
+    <div class="info-cell">
+      <span class="info-label">CLOSED</span>
+      <span class="info-val">毎週月曜<small>祝日の場合は翌火曜</small></span>
+    </div>
+    <div class="info-cell">
+      <span class="info-label">TEL</span>
+      <span class="info-val">0278-XX-XXXX<small>ご予約受付中</small></span>
+    </div>
+    <div class="info-cell">
+      <span class="info-label">ACCESS</span>
+      <span class="info-val">沼田駅 徒歩3分<small>駐車場6台あり</small></span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONCEPT ===== -->
+<section class="concept grain" id="concept">
+  <div class="wrap">
+    <div class="concept-grid">
+      <div class="reveal">
+        <span class="eyebrow">CONCEPT ─ 心意気</span>
+        <p class="concept-lead mincho">
+          山を知る天狗が見込んだ、<br>
+          <em>とびきりの旬</em>を一皿に。
+        </p>
+        <p class="concept-body">
+          赤城、武尊、谷川——上州の山々に抱かれた沼田の地。古くからこの山には、峰を駆け、森を見渡す天狗が棲むと言われてきました。当店「天狗」は、その天狗のごとく山と川を歩き、いちばん旨いものだけを見極めて仕入れます。
+        </p>
+        <p class="concept-body">
+          猟師から届く上州のジビエ、朝採りの山菜ときのこ、清流の川魚、地元の酒蔵が醸す地酒。それらを炭火でじっくり、豪快に。気取りは要りません。山の恵みを、天狗の心意気とともに振る舞います。
+        </p>
+      </div>
+      <div class="concept-art reveal">
+        <div class="grain-layer"></div>
+        <svg class="mask-big" viewBox="0 0 200 248"><use href="#tengu"/></svg>
+        <span class="art-cap mincho">天狗の見立て</span>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <span class="pillar-no mincho">其の一</span>
+        <p class="pillar-name">山の幸</p>
+        <p class="pillar-desc">ジビエ・山菜・きのこ。上州の山が育てた力強い味を、その日いちばんの状態で。</p>
+      </div>
+      <div class="pillar reveal">
+        <span class="pillar-no mincho">其の二</span>
+        <p class="pillar-name">炭火の技</p>
+        <p class="pillar-desc">備長炭の遠火でじっくり。素材の旨みを閉じ込め、香ばしく仕上げる店主の仕事。</p>
+      </div>
+      <div class="pillar reveal">
+        <span class="pillar-no mincho">其の三</span>
+        <p class="pillar-name">上州の地酒</p>
+        <p class="pillar-desc">利根の水で醸した群馬の銘酒を常時十種以上。料理に寄り添う一杯をご案内します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 名物 SIGNATURE ===== -->
+<section class="signature" id="signature">
+  <div class="wrap">
+    <div class="sig-head reveal">
+      <span class="eyebrow" style="justify-content:center;">SIGNATURE ─ 名物</span>
+      <h2 class="section-title">天狗が誇る、三つの名物</h2>
+    </div>
+    <div class="sig-grid">
+      <div class="sig-card reveal">
+        <div class="sig-visual">
+          <span class="sig-badge">名物 No.1</span>
+          <span class="sig-kanji brush">炭</span>
+          <span class="sig-no mincho">壱</span>
+        </div>
+        <div class="sig-text">
+          <p class="sig-name">上州ジビエの炭火焼き</p>
+          <p class="sig-desc">地元猟師から届く鹿肉を備長炭でさっと炙り、山椒と特製味噌だれで。臭みなく、驚くほど軽やかな旨み。</p>
+          <p class="sig-price">¥1,580<small> 税込</small></p>
+        </div>
+      </div>
+      <div class="sig-card reveal">
+        <div class="sig-visual">
+          <span class="sig-badge">人気</span>
+          <span class="sig-kanji brush">山</span>
+          <span class="sig-no mincho">弐</span>
+        </div>
+        <div class="sig-text">
+          <p class="sig-name">山の天ぷら盛り合わせ</p>
+          <p class="sig-desc">舞茸、こごみ、たらの芽——その日仕入れた山菜ときのこを、サクッと軽い衣で。藻塩か天つゆでどうぞ。</p>
+          <p class="sig-price">¥1,180<small> 税込</small></p>
+        </div>
+      </div>
+      <div class="sig-card reveal">
+        <div class="sig-visual">
+          <span class="sig-badge">2名様～</span>
+          <span class="sig-kanji brush">鍋</span>
+          <span class="sig-no mincho">参</span>
+        </div>
+        <div class="sig-text">
+          <p class="sig-name">天狗鍋</p>
+          <p class="sig-desc">きのこと山の幸をたっぷり、滋味深い出汁で炊く名物鍋。〆の十割そばまで山づくしでお楽しみを。</p>
+          <p class="sig-price">¥1,980<small> 税込／お一人様</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== お品書き MENU ===== -->
+<section class="menu grain" id="menu">
+  <div class="wrap">
+    <div class="menu-head reveal">
+      <span class="eyebrow" style="justify-content:center;">MENU ─ お品書き</span>
+      <h2 class="section-title">山と川の、お品書き</h2>
+    </div>
+    <p class="menu-note-top reveal">※ 価格はすべて税込です。仕入れにより内容が変わる場合がございます。</p>
+
+    <div class="menu-cat reveal">
+      <div class="cat-bar">
+        <span class="cat-jp">山の幸</span>
+        <span class="cat-en">FROM THE MOUNTAINS</span>
+      </div>
+      <div class="menu-list">
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">こごみのおひたし</p>
+            <p class="dish-desc">出汁をたっぷり含ませた、春の山菜の定番。</p>
+          </div>
+          <span class="dish-price">¥480</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">舞茸の炭火焼き<span class="tag-hot">人気</span></p>
+            <p class="dish-desc">利根産の肉厚舞茸を炭火で。香りをそのまま。</p>
+          </div>
+          <span class="dish-price">¥680</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">沼田こんにゃくの刺身</p>
+            <p class="dish-desc">名産こんにゃくを刺身仕立て。柚子味噌で。</p>
+          </div>
+          <span class="dish-price">¥520</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">きのこのバター醤油</p>
+            <p class="dish-desc">数種のきのこを香ばしく。日本酒のお供に。</p>
+          </div>
+          <span class="dish-price">¥640</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-bar">
+        <span class="cat-jp">炭火焼き</span>
+        <span class="cat-en">CHARCOAL GRILL</span>
+      </div>
+      <div class="menu-list">
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">上州ジビエの炭火焼き<span class="tag-hot">名物</span></p>
+            <p class="dish-desc">地元の鹿肉を山椒味噌だれで。軽やかな旨み。</p>
+          </div>
+          <span class="dish-price">¥1,580</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">上州牛の炙り</p>
+            <p class="dish-desc">群馬が誇る上州牛をさっと炙り、特製ポン酢で。</p>
+          </div>
+          <span class="dish-price">¥1,380</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">上州地鶏のもも串</p>
+            <p class="dish-desc">炭火でじっくり。皮はパリッと、中はジューシー。</p>
+          </div>
+          <span class="dish-price">¥420<small> 1本</small></span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">季節野菜の炭火盛り</p>
+            <p class="dish-desc">旬の地野菜を遠火でじっくり。素材の甘みを。</p>
+          </div>
+          <span class="dish-price">¥780</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-bar">
+        <span class="cat-jp">川と海の幸</span>
+        <span class="cat-en">RIVER &amp; SEA</span>
+      </div>
+      <div class="menu-list">
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">岩魚の塩焼き</p>
+            <p class="dish-desc">清流育ちの岩魚を、串打ちして炭火でふっくらと。</p>
+          </div>
+          <span class="dish-price">¥880</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">本日の鮮魚刺身</p>
+            <p class="dish-desc">市場直送のお造り。内容は店主におまかせを。</p>
+          </div>
+          <span class="dish-price">¥1,180</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">山女魚の天ぷら</p>
+            <p class="dish-desc">頭から尾までまるごと、香ばしくさっくりと。</p>
+          </div>
+          <span class="dish-price">¥780</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">川海老の唐揚げ</p>
+            <p class="dish-desc">小気味よい食感。お酒がすすむ一皿です。</p>
+          </div>
+          <span class="dish-price">¥580</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-bar">
+        <span class="cat-jp">揚げ物・逸品</span>
+        <span class="cat-en">SPECIALTIES</span>
+      </div>
+      <div class="menu-list">
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">山の天ぷら盛り合わせ<span class="tag-hot">名物</span></p>
+            <p class="dish-desc">山菜ときのこを軽い衣で。藻塩か天つゆで。</p>
+          </div>
+          <span class="dish-price">¥1,180</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">こんにゃくの唐揚げ</p>
+            <p class="dish-desc">下味をしっかり。外はカリッ、中はもちっと。</p>
+          </div>
+          <span class="dish-price">¥480</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">天狗の出汁巻き玉子</p>
+            <p class="dish-desc">利根の地玉子と一番出汁で焼き上げる看板の一品。</p>
+          </div>
+          <span class="dish-price">¥620</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">上州豚の味噌煮込み</p>
+            <p class="dish-desc">じっくり煮込んでとろり。ご飯もお酒も進みます。</p>
+          </div>
+          <span class="dish-price">¥720</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat reveal">
+      <div class="cat-bar">
+        <span class="cat-jp">〆もの</span>
+        <span class="cat-en">TO FINISH</span>
+      </div>
+      <div class="menu-list">
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">十割そば<span class="tag-hot">人気</span></p>
+            <p class="dish-desc">群馬産そば粉を毎朝打ちたてで。〆の定番。</p>
+          </div>
+          <span class="dish-price">¥780</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">きのこの雑炊</p>
+            <p class="dish-desc">鍋の出汁で炊く、しみじみ旨い〆の一杯。</p>
+          </div>
+          <span class="dish-price">¥680</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">焼きおにぎり茶漬け</p>
+            <p class="dish-desc">香ばしい焼きおにぎりに熱々の出汁を注いで。</p>
+          </div>
+          <span class="dish-price">¥580</span>
+        </div>
+        <div class="dish">
+          <div class="dish-info">
+            <p class="dish-name">本日の甘味</p>
+            <p class="dish-desc">食後にひとつ。内容は日替わりでご用意します。</p>
+          </div>
+          <span class="dish-price">¥380</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== お飲み物 DRINK ===== -->
+<section class="drink" id="drink">
+  <div class="wrap">
+    <div class="drink-head reveal">
+      <span class="eyebrow" style="justify-content:center;">DRINK ─ お飲み物</span>
+      <h2 class="section-title">山の夜に、一杯を。</h2>
+    </div>
+    <div class="drink-grid">
+      <div class="drink-block feature reveal">
+        <p class="drink-title">上州の地酒<span>JIZAKE</span></p>
+        <p class="drink-lead">利根の伏流水で醸す群馬の銘酒を、店主が利き酒して厳選。常時十種以上、季節の限定酒も。</p>
+        <div class="drink-row"><span>地酒 一合（季節の銘柄）</span><span>¥680～</span></div>
+        <div class="drink-row"><span>飲み比べ三種セット</span><span>¥1,180</span></div>
+        <div class="drink-row"><span>本日のおすすめ純米</span><span>時価</span></div>
+      </div>
+      <div class="drink-block reveal">
+        <p class="drink-title">ビール・サワー<span>BEER</span></p>
+        <div class="drink-row"><span>生ビール（中）</span><span>¥550</span></div>
+        <div class="drink-row"><span>瓶ビール</span><span>¥600</span></div>
+        <div class="drink-row"><span>山ぶどうサワー</span><span>¥520</span></div>
+        <div class="drink-row"><span>各種サワー・ハイボール</span><span>¥450～</span></div>
+      </div>
+      <div class="drink-block reveal">
+        <p class="drink-title">焼酎・その他<span>OTHERS</span></p>
+        <div class="drink-row"><span>本格焼酎（芋・麦）</span><span>¥480～</span></div>
+        <div class="drink-row"><span>梅酒・果実酒</span><span>¥480～</span></div>
+        <div class="drink-row"><span>ノンアルコール各種</span><span>¥380～</span></div>
+        <div class="drink-row"><span>そば茶・烏龍茶</span><span>¥300</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 宴会コース COURSE ===== -->
+<section class="course" id="course">
+  <div class="wrap">
+    <div class="course-head reveal">
+      <span class="eyebrow" style="justify-content:center;">COURSE ─ 宴会</span>
+      <h2 class="section-title">宴は、天狗におまかせ。</h2>
+    </div>
+    <p class="course-note reveal">歓送迎会・同窓会・記念日に。2時間飲み放題付き、幹事様のご負担も天狗が引き受けます。</p>
+    <div class="course-grid">
+      <div class="course-card reveal">
+        <p class="course-name">天狗コース</p>
+        <p class="course-for">気軽な集まり・少人数の宴に</p>
+        <p class="course-price">¥4,000<small> 税込</small></p>
+        <p class="course-meta">全7品 ／ 2時間飲み放題付き ／ 2名様～</p>
+        <ul class="course-feats">
+          <li>季節の前菜と山菜のおひたし</li>
+          <li>本日の鮮魚刺身</li>
+          <li>季節野菜の炭火盛り</li>
+          <li>山の天ぷら盛り合わせ</li>
+          <li>〆の十割そば・本日の甘味</li>
+        </ul>
+        <a href="#reserve" class="course-cta">このコースで予約する</a>
+      </div>
+      <div class="course-card premium reveal">
+        <span class="course-ribbon">おすすめ</span>
+        <p class="course-name">大天狗コース</p>
+        <p class="course-for">大切な席・しっかり楽しむ宴に</p>
+        <p class="course-price">¥5,500<small> 税込</small></p>
+        <p class="course-meta">全9品 ／ 2時間飲み放題付き ／ 2名様～</p>
+        <ul class="course-feats">
+          <li>天狗コースの全7品に加えて…</li>
+          <li>上州ジビエの炭火焼き</li>
+          <li>名物・天狗鍋</li>
+          <li>上州牛の炙り 一品</li>
+          <li>地酒の飲み比べ付き</li>
+        </ul>
+        <a href="#reserve" class="course-cta">このコースで予約する</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 個室・店内 ROOM ===== -->
+<section class="room grain" id="room">
+  <div class="wrap">
+    <div class="room-grid">
+      <div class="room-art reveal">
+        <svg class="fan" viewBox="0 0 120 130"><use href="#fan"/></svg>
+        <p>店内・個室イメージ</p>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">PRIVATE ─ 個室・店内</span>
+        <h2 class="section-title">山小屋のような、<br>くつろぎの席。</h2>
+        <div class="room-feats">
+          <div class="room-feat">
+            <span class="feat-mark mincho">個</span>
+            <div>
+              <p class="feat-name">掘りごたつ個室（4～8名様）</p>
+              <p class="feat-desc">足をのばしてゆったり。接待やご家族の集まりに、周りを気にせずお過ごしいただけます。</p>
+            </div>
+          </div>
+          <div class="room-feat">
+            <span class="feat-mark mincho">座</span>
+            <div>
+              <p class="feat-name">座敷席・貸切（～30名様）</p>
+              <p class="feat-desc">宴会には座敷を貸切で。レイアウトのご相談も承ります。最大30名様まで対応可能。</p>
+            </div>
+          </div>
+          <div class="room-feat">
+            <span class="feat-mark mincho">炉</span>
+            <div>
+              <p class="feat-name">炭火が見えるカウンター（8席）</p>
+              <p class="feat-desc">おひとり様も気軽に。店主の炭火仕事を眺めながら、その日のおすすめを一品ずつ。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== アクセス・ご予約 ===== -->
+<section class="access" id="access">
+  <div class="wrap">
+    <div class="access-grid">
+      <div class="reveal" id="reserve">
+        <span class="eyebrow">ACCESS ─ アクセス</span>
+        <h2 class="section-title">店舗のご案内</h2>
+        <dl class="access-rows">
+          <div class="arow"><dt>店名</dt><dd>居酒屋 天狗</dd></div>
+          <div class="arow"><dt>住所</dt><dd>群馬県沼田市◯◯町X-X-X</dd></div>
+          <div class="arow"><dt>アクセス</dt><dd>JR上越線 沼田駅より徒歩3分／駐車場6台あり</dd></div>
+          <div class="arow"><dt>営業時間</dt><dd>17:00 – 24:00（料理L.O. 23:00／ドリンクL.O. 23:30）</dd></div>
+          <div class="arow"><dt>定休日</dt><dd>毎週月曜日（祝日の場合は翌火曜）</dd></div>
+          <div class="arow"><dt>席数</dt><dd>カウンター8席／座敷・テーブル24席／個室2室</dd></div>
+          <div class="arow"><dt>そのほか</dt><dd>禁煙（喫煙スペースあり）／各種カード・電子マネー利用可</dd></div>
+        </dl>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">RESERVATION ─ ご予約</span>
+        <div class="reserve-card" style="margin-top:18px;">
+          <span class="rmethod-label">お電話でのご予約・お問い合わせ</span>
+          <a href="tel:0278000000" class="reserve-tel mincho">0278-XX-XXXX</a>
+          <p class="reserve-hours">受付時間 15:00 – 23:00 ／ 当日のご予約もお気軽に</p>
+          <div class="reserve-methods">
+            <a href="#" class="rmethod">
+              <span class="rmethod-ic">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 5.8 2 10.5c0 2.7 1.5 5.1 3.9 6.7-.2.7-.7 2.5-.8 2.9 0 0-.02.15.08.2.1.06.22.02.22.02.3-.04 3.4-2.24 3.9-2.6.86.13 1.76.2 2.7.2 5.5 0 10-3.8 10-8.5S17.5 2 12 2z"/></svg>
+              </span>
+              <span>
+                <span class="rmethod-label">LINE</span><br>
+                <span class="rmethod-name">LINEで予約・お問い合わせ</span>
+              </span>
+            </a>
+            <a href="#" class="rmethod">
+              <span class="rmethod-ic">
+                <svg viewBox="0 0 24 24"><path d="M3 4h18v3H3zm0 6h18v3H3zm0 6h12v3H3z"/></svg>
+              </span>
+              <span>
+                <span class="rmethod-label">NET</span><br>
+                <span class="rmethod-name">グルメサイトから予約</span>
+              </span>
+            </a>
+            <a href="#course" class="rmethod">
+              <span class="rmethod-ic">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.9H21l-5.3 4.1 2 6.9L12 16.6 6.3 19.9l2-6.9L3 8.9h6.6z"/></svg>
+              </span>
+              <span>
+                <span class="rmethod-label">COURSE</span><br>
+                <span class="rmethod-name">宴会コースのご相談</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <svg viewBox="0 0 200 248"><use href="#tengu"/></svg>
+      <span class="footer-brand-name">居酒屋 天狗
+        <small>上州・沼田の山の幸処 ─ Since 2018</small>
+      </span>
+    </div>
+    <nav class="footer-nav">
+      <a href="#concept">心意気</a>
+      <a href="#signature">名物</a>
+      <a href="#menu">お品書き</a>
+      <a href="#drink">お飲み物</a>
+      <a href="#course">宴会コース</a>
+      <a href="#room">個室・店内</a>
+      <a href="#access">アクセス</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 居酒屋 天狗 ｜ IZAKAYA TENGU. All Rights Reserved.</span>
+    <span>群馬県沼田市</span>
+  </div>
+</footer>
+
+<script>
+  // ヘッダーのスクロール状態
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // モバイルメニュー
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => menu.classList.remove('open'));
+  });
+
+  // 火の粉
+  const embers = document.getElementById('embers');
+  const N = 18;
+  for (let i = 0; i < N; i++) {
+    const e = document.createElement('span');
+    e.className = 'ember';
+    e.style.left = Math.random() * 100 + '%';
+    const dur = 7 + Math.random() * 9;
+    e.style.animationDuration = dur + 's';
+    e.style.animationDelay = (-Math.random() * dur) + 's';
+    const s = 2 + Math.random() * 3;
+    e.style.width = s + 'px';
+    e.style.height = s + 'px';
+    if (Math.random() > 0.5) e.style.background = 'var(--crimson-bright)';
+    embers.appendChild(e);
+  }
+
+  // スクロールで現れる演出
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3) * 0.08 + 's';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
